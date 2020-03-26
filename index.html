@@ -143,7 +143,10 @@ li {
                 document.getElementById("lblErr").style.visibility = 'hidden';
 
                 Email.send({
-                    SecureToken : "a84165fb-47f7-4c64-b71c-15ad69ad4ee9",
+                    //SecureToken : "a84165fb-47f7-4c64-b71c-15ad69ad4ee9",
+                    Host : "smtp.google.com:587",
+                    Username : "cslearningcommunity@gmail.com",
+                    Password : "francismarion2",
                     To : "afulmer6127@g.fmarion.edu",
                     From : "cslearningcommunity@gmail.com",
                     Subject : "Request -" + name + " - " + course,

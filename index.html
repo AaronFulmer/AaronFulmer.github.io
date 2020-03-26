@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+    <style>
+        
+
+body {
+    /* Uncomment this to enable scrolling and zooming
+  touch-action: manipulation;
+  */
+    background-color: white;
+}
+
+form {
+    margin: 16px 32px 16px 32px;
+    padding: 32px 32px 32px 32px;
+    border-radius: 15px 15px;
+    background-color: lightgray;
+}
+
+label {
+    font: 14px arial, sans-serif;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+        h3 {
+            font: 14px arial, sans-serif;
+        }
+li {
+    float: left;
+}
+
+    li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font: 14px arial, sans-serif;
+    }
+
+        li b {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 28px 16px;
+            text-decoration: none;
+            
+        }
+
+        b {
+            font: 32px arial, sans-serif;
+        }
+
+        /* Change the link color to #111 (black) on hover */
+        li a:hover {
+            background-color: #111;
+        }
+        #cmbClass {
+            width: 149px;
+        }
+    </style>
+<body>
+    
+    <ul>
+        <li><img src="cslc logo.png" /></li>
+        <li><b>CS Learning Community Online</b>
+        <ul>
+            <li><a class="active" href="index.html">Submit Ticket</a></li>
+            <li><a href="help.html">Help</a></li>
+            <li><a href="contact.html">Contact</a></li> 
+        </ul>
+        </li>
+    </ul>
+   <br />
+    <form name="form">
+    <h3>Name:</h3>
+    <input id="txtName" type="text" />
+    <h3>Email Address:</h3>
+    <input id="txtEmail" type="text" />
+    <br />
+    <br />
+    <h3>Class:</h3>
+    <select id="cmbClass" onchange="
+        if(this.value=='5') {document.form['txtOther'].style.visibility='visible'}
+        else {document.form['txtOther'].style.visibility='hidden'};
+        ">
+        <option value="1">CS-190</option>
+        <option value="2">CS-226</option>
+        <option value="3">CS-227</option>
+        <option value="4">CS-318</option>
+        <option value="5">Other (Specify)</option>
+    </select>
+    <input name="txtOther" type="text" style="visibility:hidden" />
+    <br />
+    <br />
+    <h3>Assignment:</h3>
+    <textarea id="txtAssign" cols="60" rows="6"></textarea>
+    <h3>Description of problem:</h3>
+    <textarea id="txtProblem" cols="60" rows="6"></textarea>
+    <br />
+    <br />
+    <br />
+    <input id="chkVoice" type="checkbox"/>
+        <label for="chkVoice">Request Voice Call</label>
+    <br />
+    <br />
+    <h3>Upload Source Code:</h3>
+    <input id="file" type="file" multiple="multiple" />
+    <br />
+    <br />
+    <label id="lblErr" style="color:red; font:20px arial, sans-serif; visibility:hidden">Ensure all fields have been properly filled.</label>
+    <br />
+    <input id="btnSubmit" type="button" value="Submit" style="width:100px;height:30px" onclick="clicked();"/>
+    </form>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script>
+        function clicked() {
+            var name = document.getElementById("txtName").value;
+            var email = document.getElementById("txtEmail").value;
+            var course = document.getElementById("cmbClass").value;
+            if (course == "Other") {
+                course = document.getElementById("txtOther").value;
+            }
+            var assignment = document.getElementById("txtAssign").value;
+            var problem = document.getElementById("txtProblem").value;
+            var voice = document.getElementById("chkVoice").checked;
+
+            if (name.trim() == "" || email.trim() == "" || (course.trim() == "Other" && document.getElementById("txtOther").value.trim() == "") || assignment.trim() == "" || problem.trim() == "") {
+                document.getElementById("lblErr").style.visibility = 'visible';
+            }
+           else {
+                document.getElementById("lblErr").style.visibility = 'hidden';
+
+                Email.send({
+                    SecureToken : "a84165fb-47f7-4c64-b71c-15ad69ad4ee9",
+                    To : "afulmer6127@g.fmarion.edu",
+                    From : "cslearningcommunity@gmail.com",
+                    Subject : "Request -" + name + " - " + course,
+                    Body : "this is a test"
+                }).then(message => alert(message));
+                
+            }
+        }
+    </script>
+    </body>
+</html>
